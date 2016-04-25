@@ -219,6 +219,8 @@ function sizeLimits(node: HTMLElement): ISizeLimits {
  *
  * @param elem - The element of interest.
  *
+ * @param threshold - The overflow threshold required before scrolling.
+ *
  * #### Example
  * ```typescript
  * import { scrollIfNeeded } from 'phosphor-ui/lib/domutil';
@@ -242,12 +244,12 @@ function sizeLimits(node: HTMLElement): ISizeLimits {
  * ```
  */
 export
-function scrollIfNeeded(area: HTMLElement, elem: HTMLElement): void {
+function scrollIfNeeded(area: HTMLElement, elem: HTMLElement, threshold = 10): void {
   let ar = area.getBoundingClientRect();
   let er = elem.getBoundingClientRect();
-  if (er.top < ar.top - 10) {
-    area.scrollTop -= ar.top - er.top + 10;
-  } else if (er.bottom > ar.bottom + 10) {
-    area.scrollTop += er.bottom - ar.bottom + 10;
+  if (er.top < ar.top - threshold) {
+    area.scrollTop -= ar.top - er.top + threshold;
+  } else if (er.bottom > ar.bottom + threshold) {
+    area.scrollTop += er.bottom - ar.bottom + threshold;
   }
 }
